@@ -1,0 +1,10 @@
+{
+	"from": [{
+		"phoneNumber": ""
+	}],
+	"to": [{
+		"phoneNumber": ""
+	}],
+	"text": "test sms message. ---{signature}",
+	"count": 7
+}

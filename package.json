@@ -1,0 +1,6 @@
+{
+	"description": "Generate lots of apis calls with ringcentral js sdk: Generate Call Recordings, Generate Text Messages, Generate Phone calls (no recording necessary) for Manipulating Call Logs, Generate Faxes",
+	"dependencies": {
+		"ringcentral": "^2.0.6"
+	}
+}
