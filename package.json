@@ -1,11 +1,12 @@
 {
-	"name": "call-rc-sdk-js",
-	"version": "0.1.0",
-	"description": "Generate lots of apis calls with ringcentral js sdk: Generate Call Recordings, Generate Text Messages, Generate Phone calls (no recording necessary) for Manipulating Call Logs, Generate Faxes",
-	"scripts": {
-		"install": "cp -nr conf-sample/ conf;exit 0"
-	},
-	"dependencies": {
-		"ringcentral": "^2.0.6"
-	}
+  "name": "call-rc-sdk-js",
+  "version": "0.1.0",
+  "description": "Generate lots of apis calls with ringcentral js sdk: Generate Call Recordings, Generate Text Messages, Generate Phone calls (no recording necessary) for Manipulating Call Logs, Generate Faxes",
+  "scripts": {
+    "install": "cp -nr conf-sample/ conf;exit 0"
+  },
+  "dependencies": {
+    "form-data": "^1.0.0-rc4",
+    "ringcentral": "^2.0.6"
+  }
 }

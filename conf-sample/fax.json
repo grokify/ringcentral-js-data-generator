@@ -1,0 +1,11 @@
+{
+	"params": {
+		"to": [{
+			"phoneNumber": ""
+		}],
+		"faxResolution": "Low"
+	},
+	"files": ["/path/to/attachment/files"],
+	"text": "test fax message -- {signature}",
+	"count": 1
+}

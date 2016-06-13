@@ -19,7 +19,8 @@ rcPlatform.login(authConf.user).then(sendSms).catch(function(e) {
 function sendSms() {
 	var sentCount = 0;
 	var fromPhones = smsConf.from;
-	for (var n = 1; n <= smsConf.count; n++) {
+	var repeat = smsConf.count || 1;
+	for (var n = 1; n <= repeat; n++) {
 		for (var i = 0; i < fromPhones.length; i++) {
 			var f = fromPhones[i];
 			var signature = 'from ' + phoneNumberFmt(f) + ' to ' + smsConf.to.map(phoneNumberFmt).join(', ') + '. Time:' + new Date() + '. #' + n;

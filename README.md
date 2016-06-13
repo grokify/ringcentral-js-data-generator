@@ -12,3 +12,8 @@ A set of node command line applications to call Ringcentral sdk apis repeatedly.
 
 1. Edit `conf/sms.json`
 2. `node sendsms.js`
+
+## Gengerate fax api calls
+
+1. Edit `conf/fax.json`
+2. `node sendfax.js`
