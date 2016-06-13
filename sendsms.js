@@ -1,4 +1,10 @@
-var Ringcentral = require('ringcentral');
+try {
+	var Ringcentral = require('ringcentral');
+} catch (e) {
+	console.error('Please run `npm install` first.');
+	return;
+}
+
 var authConf = require('./conf/auth.json');
 var smsConf = require('./conf/sms.json');
 
