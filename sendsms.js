@@ -13,7 +13,7 @@ var ringcentral = new Ringcentral(authConf.app);
 var rcPlatform = ringcentral.platform();
 
 rcPlatform.login(authConf.user).then(sendSms).catch(function(e) {
-	console.error('Fail to login', e);
+	console.error('Fail to login:' + e);
 });
 
 function sendSms() {
