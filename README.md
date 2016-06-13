@@ -8,7 +8,7 @@ A set of node command line applications to call Ringcentral sdk apis repeatedly.
 2. Run `npm install`
 3. Edit files in `conf` directory with your own configurations
 
-## Gengerated sms api calls
+## Gengerate sms api calls
 
 1. Edit `conf/sms.json`
 2. `node sendsms.js`
