@@ -1,6 +1,6 @@
-# Generate Ringcentral sdk api calls
+# Ringcentral js data generator
 
-A set of node command line applications to call Ringcentral sdk apis repeatedly. The api calls are configured by json files in `conf` directory.
+A set of node command line applications calling Ringcentral js apis repeatedly to generate Ringcentral data records (messages, faxes, pager messages, phone call logs, call recordings). The api calls are configured by json files in `conf` directory.
 
 # Getting Started
 

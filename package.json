@@ -1,7 +1,7 @@
 {
-  "name": "call-rc-sdk-js",
+  "name": "ringcentral-js-data-generator",
   "version": "0.1.0",
-  "description": "Generate lots of apis calls with ringcentral js sdk: Generate Call Recordings, Generate Text Messages, Generate Phone calls (no recording necessary) for Manipulating Call Logs, Generate Faxes",
+  "description": "A set of node command line applications calling Ringcentral js apis repeatedly to generate Ringcentral data records (messages, faxes, pager messages, phone call logs, call recordings). The api calls are configured by json files in `conf` directory.",
   "scripts": {
     "install": "cp -nr conf-sample/ conf;exit 0"
   },
