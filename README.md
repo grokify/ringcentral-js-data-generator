@@ -17,3 +17,7 @@ A set of node command line applications calling Ringcentral js apis repeatedly t
 
 1. Edit `conf/fax.json`
 2. `node sendfax.js`
+
+# About configuration
+
+If the repeat `count` is -1, then it will run forever.

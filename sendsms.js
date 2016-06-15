@@ -4,7 +4,8 @@ try {
 	console.error('Please run `npm install` first.');
 	return;
 }
-var HttpStatus = require('http-status-codes')
+
+var sendRequests = require('./lib/send-requests.js');
 var authConf = require('./conf/auth.json');
 var smsConf = require('./conf/sms.json');
 
@@ -12,47 +13,37 @@ var ringcentral = new Ringcentral(authConf.app);
 
 var rcPlatform = ringcentral.platform();
 
-rcPlatform.login(authConf.user).then(composeMessages).then(sendSms).catch(function(e) {
+rcPlatform.login(authConf.user).then(sendSms).catch(function(e) {
 	console.error('Fail to login:' + e);
 });
 
-function composeMessages() {
-	var messages = [];
+var sentCount = 0;
+var repeated = 0;
+function sendSms() {
+	var reqs = [];
 	var fromPhones = smsConf.from;
-	var repeat = smsConf.count || 1;
-	for (var n = 1; n <= repeat; n++) {
-		for (var i = 0; i < fromPhones.length; i++) {
+	for (var i = 0; i < fromPhones.length; i++) {
 			var f = fromPhones[i];
-			var signature = 'from ' + phoneNumberFmt(f) + ' to ' + smsConf.to.map(phoneNumberFmt).join(', ') + '. Time:' + new Date() + '. #' + n;
+			var signature = 'from ' + phoneNumberFmt(f) + ' to ' + smsConf.to.map(phoneNumberFmt).join(', ') + '. Time:' + new Date() + '. #' + repeated;
 			var params = {
 				from: f,
 				to: smsConf.to,
 				text: smsConf.text.replace('{signature}', signature)
 			};
-			messages.push(params);
-		}
+			reqs.push({url: '/account/~/extension/~/sms', data: params});
 	}
-	return messages;
-}
-
-var sentCount = 0;
-
-function sendSms(remainingMessages) {
-	rcPlatform.post('/account/~/extension/~/sms', remainingMessages[0]).then(function() {
-		remainingMessages.shift();
-		sentCount++;
-		console.log(sentCount + ' sms sent.');
-		if (remainingMessages.length > 0) {
-			sendSms(remainingMessages);
-		}
-	}).catch(function(e) {
-		var res = e.apiResponse.response();
-		if (res.status = HttpStatus.TOO_MANY_REQUESTS) {
-			var retryAfter = parseInt(res.headers.get('retry-after'));
-			console.warn('Rate limit reached, will retry after ' + retryAfter + ' seconds.');
-			setTimeout(sendSms, retryAfter * 1000, remainingMessages);
+	sendRequests(rcPlatform, reqs, function (err) {
+		if (!err) {
+			sentCount++;
+			console.log(sentCount + ' sms sent.');
 		} else {
-			console.error('Fail to send sms:' + e);
+			console.error('Send sms error:'+err);
+		}
+	}, function() {
+		repeated++;
+		var repeat = smsConf.count || 1;
+		if (repeated < repeat || repeat == -1) {
+			sendSms();
 		}
 	});
 }
