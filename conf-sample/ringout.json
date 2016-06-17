@@ -1,12 +1,12 @@
 {
-	"params": {
+	"ringouts": [{
 		"from": {
 			"phoneNumber": ""
 		},
 		"to": {
 			"phoneNumber": ""
 		},
-		"playPrompt": true
-	},
-	"count": 2
+		"playPrompt": false
+	}],
+	"count": -1
 }
