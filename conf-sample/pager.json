@@ -1,0 +1,10 @@
+{
+	"from": [{
+		"extensionNumber": ""
+	}],
+	"to": [{
+		"extensionNumber": ""
+	}],
+	"text": "test sms message. limit test. ---{signature}",
+	"count": 2
+}
