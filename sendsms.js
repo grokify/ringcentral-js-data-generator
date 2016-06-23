@@ -14,30 +14,40 @@ var ringcentral = new Ringcentral(authConf.app);
 var rcPlatform = ringcentral.platform();
 
 rcPlatform.login(authConf.user).then(sendSms).catch(function(e) {
-	console.error('Fail to login:' + e);
+	console.error('Fail to login:', e);
 });
 
 var sentCount = 0;
 var repeated = 0;
+
 function sendSms() {
+	var conf = smsConf;
 	var reqs = [];
-	var fromPhones = smsConf.from;
+	var fromPhones = conf.from;
+	var toPhones = conf.to;
 	for (var i = 0; i < fromPhones.length; i++) {
+		for (var j = 0; j < toPhones.length; j++) {
 			var f = fromPhones[i];
-			var signature = 'from ' + phoneNumberFmt(f) + ' to ' + smsConf.to.map(phoneNumberFmt).join(', ') + '. Time:' + new Date() + '. #' + repeated;
+			var t = toPhones[j];
+			var signature = 'from ' + phoneNumberFmt(f) + ' to ' + phoneNumberFmt(t) + '. Time:' + new Date() + '. #' + repeated;
 			var params = {
 				from: f,
-				to: smsConf.to,
+				to: [t],
 				text: smsConf.text.replace('{signature}', signature)
 			};
-			reqs.push({url: '/account/~/extension/~/sms', data: params});
+			reqs.push({
+				url: '/account/~/extension/~/sms',
+				data: params
+			});
+		}
+
 	}
-	sendRequests(rcPlatform, reqs, function (err) {
+	sendRequests(rcPlatform, reqs, function(err) {
 		if (!err) {
 			sentCount++;
 			console.log(sentCount + ' sms sent.');
 		} else {
-			console.error('Send sms error:'+err);
+			console.error('Send sms error:' + err);
 		}
 	}, function() {
 		repeated++;
@@ -47,6 +57,7 @@ function sendSms() {
 		}
 	});
 }
+
 
 function phoneNumberFmt(info) {
 	var str = info.phoneNumber;
