@@ -4,7 +4,7 @@ try {
 	console.error('Please run `npm install` first.');
 	return;
 }
-
+var Handlebars = require('handlebars');
 var sendRequests = require('./lib/send-requests.js');
 var FormData = require('form-data');
 var fs = require('fs');
@@ -19,6 +19,7 @@ rcPlatform.login(authConf.user).then(sendfax).catch(function(e) {
 	console.error('Fail to login:' + e);
 });
 
+var tpl = Handlebars.compile(faxConf.text);
 var sentCount = 0;
 var repeated = 0;
 
@@ -29,7 +30,12 @@ function sendfax() {
 		contentType: 'application/json'
 	});
 
-	var text = faxConf.text.replace('{signature}', 'to ' + fmtPhoneNumbers(faxConf.params.to) + '. Time:' + new Date() + '. #' + repeated);
+	var data = {
+		to: fmtPhoneNumbers(faxConf.params.to),
+		time: new Date(),
+		no: repeated
+	};
+	var text = tpl(data);
 	form.append('attachment', new Buffer(text), {
 		filename: 'text.txt'
 	});

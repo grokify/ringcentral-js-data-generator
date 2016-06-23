@@ -4,7 +4,7 @@ try {
 	console.error('Please run `npm install` first.');
 	return;
 }
-
+var Handlebars = require('handlebars');
 var sendRequests = require('./lib/send-requests.js');
 var authConf = require('./conf/auth.json');
 var pagerConf = require('./conf/pager.json');
@@ -17,6 +17,7 @@ rcPlatform.login(authConf.user).then(sendPager).catch(function(e) {
 	console.error('Fail to login:' + e);
 });
 
+var tpl = Handlebars.compile(pagerConf.text);
 var sentCount = 0;
 var repeated = 0;
 function sendPager() {
@@ -24,11 +25,16 @@ function sendPager() {
 	var fromPhones = pagerConf.from;
 	for (var i = 0; i < fromPhones.length; i++) {
 			var f = fromPhones[i];
-			var signature = 'from ' + phoneNumberFmt(f) + ' to ' + pagerConf.to.map(phoneNumberFmt).join(', ') + '. Time:' + new Date() + '. #' + repeated;
+			var data = {
+				from: f.extensionNumber,
+				to: pagerConf.to.map(phoneNumberFmt).join(', '),
+				time: new Date(),
+				no: repeated
+			};
 			var params = {
 				from: f,
 				to: pagerConf.to,
-				text: pagerConf.text.replace('{signature}', signature)
+				text: tpl(data)
 			};
 			reqs.push({url: '/account/~/extension/~/company-pager', data: params});
 	}

@@ -4,7 +4,7 @@ try {
 	console.error('Please run `npm install` first.');
 	return;
 }
-
+var Handlebars = require('handlebars');
 var sendRequests = require('./lib/send-requests.js');
 var authConf = require('./conf/auth.json');
 var smsConf = require('./conf/sms.json');
@@ -17,6 +17,7 @@ rcPlatform.login(authConf.user).then(sendSms).catch(function(e) {
 	console.error('Fail to login:', e);
 });
 
+var smsTpl = Handlebars.compile(smsConf.text);
 var sentCount = 0;
 var repeated = 0;
 
@@ -29,11 +30,16 @@ function sendSms() {
 		for (var j = 0; j < toPhones.length; j++) {
 			var f = fromPhones[i];
 			var t = toPhones[j];
-			var signature = 'from ' + phoneNumberFmt(f) + ' to ' + phoneNumberFmt(t) + '. Time:' + new Date() + '. #' + repeated;
+			var data = {
+				from: f.phoneNumber,
+				to: t.phoneNumber,
+				time: new Date(),
+				no: repeated
+			}
 			var params = {
 				from: f,
 				to: [t],
-				text: smsConf.text.replace('{signature}', signature)
+				text: smsTpl(data)
 			};
 			reqs.push({
 				url: '/account/~/extension/~/sms',

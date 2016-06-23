@@ -5,6 +5,6 @@
 	"to": [{
 		"extensionNumber": ""
 	}],
-	"text": "test sms message. limit test. ---{signature}",
+	"text": "test pager message. limit test. ---from {{from}} to {{to}}. Time:{{time}}. #{{no}}",
 	"count": 2
 }

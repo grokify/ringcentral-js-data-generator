@@ -3,9 +3,10 @@
 		"to": [{
 			"phoneNumber": ""
 		}],
-		"faxResolution": "Low"
+		"faxResolution": "High",
+		"coverIndex": 0
 	},
-	"files": ["/path/to/attachment/files"],
-	"text": "test fax message -- {signature}",
-	"count": 1
+	"files": [],
+	"text": "test fax message ---to {{to}} . Time: {{time}}. # {{no}}",
+	"count": 2
 }

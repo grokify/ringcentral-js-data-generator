@@ -4,7 +4,9 @@
 	}],
 	"to": [{
 		"phoneNumber": ""
+	}, {
+		"phoneNumber": ""
 	}],
-	"text": "test sms message. ---{signature}",
-	"count": 7
+	"text": "test sms message. limit test. ---from {{from}} to {{to}} . Time: {{time}}. # {{no}}",
+	"count": 1000
 }
