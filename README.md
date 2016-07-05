@@ -1,6 +1,6 @@
-# Ringcentral js data generator
+# RingCentral JS Data Generator
 
-A set of node command line applications calling Ringcentral js apis repeatedly to generate Ringcentral data records (messages, faxes, pager messages, phone call logs, call recordings). The api calls are configured by json files in `conf` directory.
+A set of node command line applications calling RingCentral REST APIs repeatedly to generate RingCentral data records (messages, faxes, pager messages, phone call logs, call recordings). The API calls are configured by JSON files in the `conf` directory.
 
 # Getting Started
 
@@ -8,12 +8,12 @@ A set of node command line applications calling Ringcentral js apis repeatedly t
 2. Run `npm install`
 3. Edit files in `conf` directory with your own configurations
 
-## Gengerate sms api calls
+## Generate SMS API calls
 
 1. Edit `conf/sms.json`
 2. `node sendsms.js`
 
-## Gengerate fax api calls
+## Generate fax API calls
 
 1. Edit `conf/fax.json`
 2. `node sendfax.js`
